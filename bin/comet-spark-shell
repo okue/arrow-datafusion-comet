@@ -25,6 +25,9 @@ if [[ -z ${SPARK_HOME} ]]; then
   exit 1
 fi
 
+MODE="${1:-$spark-sql}"
+shift
+
 POSITIONAL=()
 while [[ $# -gt 0 ]]; do
   key="$1"
@@ -75,7 +78,7 @@ if [[ "X$REBUILD" == "XYES" ]]; then
   cd $COMET_DIR/spark && cp target/${COMET_SPARK_JAR} $COMET_OUTDIR/${COMET_SPARK_JAR}
 fi
 
-RUST_BACKTRACE=1 $SPARK_HOME/bin/spark-shell \
+RUST_BACKTRACE=1 $SPARK_HOME/bin/$MODE \
   --jars $COMET_OUTDIR/${COMET_SPARK_JAR} \
   --conf spark.sql.extensions=org.apache.comet.CometSparkSessionExtensions \
   --conf spark.comet.enabled=true \
