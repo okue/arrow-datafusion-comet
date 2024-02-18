@@ -107,4 +107,4 @@ create external table hits
     CLID INT NOT NULL
 )
 using parquet
-location 'file:/Users/oky/work/arrow-datafusion-comet/spark-warehouse/hits'
+location './hits/';
